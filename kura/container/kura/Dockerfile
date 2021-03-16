@@ -11,7 +11,7 @@ ARG KURA_COMMIT
 ARG PACKED=false
 
 ENV \
-  GIT_REPO=${GIT_REPO:-https://github.com/eclipse/kura.git} \
+  GIT_REPO=${GIT_REPO:-https://github.com/hyperknow/kura-4.1.2.git} \
   GIT_BRANCH=${GIT_BRANCH:-develop} \
   JAVA_HOME=/usr/lib/jvm/jre-1.8.0 \
   MAVEN_PROPS=-DskipTests \
