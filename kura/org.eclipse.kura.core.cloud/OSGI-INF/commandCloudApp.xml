@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2011, 2018 Eurotech and/or its affiliates and others
+
+     All rights reserved. This program and the accompanying materials
+     are made available under the terms of the Eclipse Public License v1.0
+     which accompanies this distribution, and is available at
+     http://www.eclipse.org/legal/epl-v10.html
+
+    Contributors:
+      Eurotech
+      Red Hat Inc
+
+-->
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" configuration-policy="require" deactivate="deactivate" modified="updated" name="org.eclipse.kura.cloud.app.command.CommandCloudApp">
+   <implementation class="org.eclipse.kura.cloud.app.command.CommandCloudApp"/>	 
+   <reference name="CryptoService"
+              policy="static"
+              cardinality="1..1" 
+              bind="setCryptoService"
+              unbind="unsetCryptoService"
+              interface="org.eclipse.kura.crypto.CryptoService"/>
+   <reference name="RequestHandlerRegistry"
+              policy="dynamic"
+              cardinality="0..n" 
+              bind="setRequestHandlerRegistry"
+              unbind="unsetRequestHandlerRegistry"
+              interface="org.eclipse.kura.cloudconnection.request.RequestHandlerRegistry"/>
+   	<service>
+   		<provide interface="org.eclipse.kura.command.PasswordCommandService"/>
+     	<provide interface="org.eclipse.kura.configuration.ConfigurableComponent"/>
+   	</service>
+   	<property name="service.pid" type="String" value="org.eclipse.kura.cloud.app.command.CommandCloudApp"/>
+</scr:component>

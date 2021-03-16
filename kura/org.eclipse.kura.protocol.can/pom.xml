@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2011, 2017 Eurotech and/or its affiliates
+
+     All rights reserved. This program and the accompanying materials
+     are made available under the terms of the Eclipse Public License v1.0
+     which accompanies this distribution, and is available at
+     http://www.eclipse.org/legal/epl-v10.html
+
+    Contributors:
+      Eurotech
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.eclipse.kura</groupId>
+		<artifactId>kura</artifactId>
+		<version>4.1.2</version>
+	</parent>
+
+	<artifactId>org.eclipse.kura.protocol.can</artifactId>
+	<version>2.0.402-SNAPSHOT</version>
+	<packaging>eclipse-plugin</packaging>
+
+	<properties>
+		<kura.basedir>${project.basedir}/..</kura.basedir>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>de.entropia</groupId>
+			<artifactId>libsocket-can-java</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.1</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>lib</outputDirectory>
+							<excludeGroupIds>p2.eclipse-plugin,org.eclipse.kura</excludeGroupIds>
+							<excludeTransitive>true</excludeTransitive>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<verbose>true</verbose>
+					<filesets>
+						<fileset>
+							<directory>lib</directory>
+							<followSymlinks>false</followSymlinks>
+							<!-- <includes> <include>abc</include> </includes> -->
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>de.dentrassi.maven</groupId>
+				<artifactId>osgi-dp</artifactId>
+				<version>${osgi-dp-plugin-version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
